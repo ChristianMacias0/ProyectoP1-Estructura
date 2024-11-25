@@ -5,14 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.*;
 import proyecto.cluster;
 
 public class Cuadro{
@@ -299,6 +292,11 @@ public class Cuadro{
                     }
                     return cmp;
                 }).orElse(null);
+    }
+    
+
+    public void pintarCuadro(int closter, int color){
+        
     }
 
 
