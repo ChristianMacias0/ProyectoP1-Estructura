@@ -217,6 +217,8 @@ public class Cuadro{
                 }
             }
         }
+
+        /* 
     
         // Ordenar los clusters por tamaño (descendente) y píxel más a la izquierda
         resultado.sort((c1, c2) -> {
@@ -236,6 +238,43 @@ public class Cuadro{
     
         return new LinkedList<>(resultado); // Convertimos de List a Queue
     }
+    */
+        // Eliminar clusters que contienen todos los elementos de la última fila
+    List<cluster> clustersSinUltimaFila = new ArrayList<>();
+    for (cluster c : resultado) {
+        boolean contieneUltimaFila = true;
+        for (int columna = 0; columna < matriz[matriz.length - 1].length; columna++) {
+            Coordenada coordUltimaFila = new Coordenada(matriz.length - 1, columna);
+            if (!c.getPixeles().contains(coordUltimaFila)) {
+                contieneUltimaFila = false;
+                break;
+            }
+        }
+        if (!contieneUltimaFila) {
+            clustersSinUltimaFila.add(c); // Solo agregamos los clusters que no contienen la última fila
+        }
+    }
+
+    // Ahora, ordenar los clusters por tamaño (descendente) y píxel más a la izquierda
+    clustersSinUltimaFila.sort((c1, c2) -> {
+        // Comparar por tamaño (descendente)
+        int cmp = Integer.compare(c2.getTam(), c1.getTam());
+        if (cmp == 0) {
+            // En caso de empate, comparar por el píxel más a la izquierda
+            Coordenada minC1 = obtenerPixelMasIzquierdo(c1);
+            Coordenada minC2 = obtenerPixelMasIzquierdo(c2);
+            cmp = Integer.compare(minC1.getFila(), minC2.getFila());
+            if (cmp == 0) {
+                cmp = Integer.compare(minC1.getColumna(), minC2.getColumna());
+            }
+        }
+        return cmp;
+    });
+
+    return new LinkedList<>(clustersSinUltimaFila); // Convertimos de List a Queue
+}
+
+
 
     private List<Coordenada> getAdyacentes(Coordenada coord) {
         List<Coordenada> adyacentes = new ArrayList<>();
@@ -247,8 +286,8 @@ public class Cuadro{
     }
 
     private boolean esValida(Coordenada coord) {
-        return coord.getFila() >= 0 && coord.getFila() < matriz.length &&
-               coord.getColumna() >= 0 && coord.getColumna() < matriz[0].length;
+        return coord.getFila() >= 0 && coord.getFila() < this.fila &&
+               coord.getColumna() >= 0 && coord.getColumna() < this.columna;
     }
 
     private Coordenada obtenerPixelMasIzquierdo(cluster c) {

@@ -88,5 +88,10 @@ public class cluster implements Comparable<cluster> {
         if(pixelIzq < this.pixelIzq){this.pixelIzq = pixelIzq;}
     }
 
+    @Override
+    public String toString() {
+        return "cluster{" + "tam=" + tam + ", pixeles=" + pixeles + ", pixelIz q=" + pixelIzq + ", numeroCloster=" + numeroCloster +" color: "+ color +"}";
+    }
+
 
 }
