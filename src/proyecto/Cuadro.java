@@ -13,6 +13,14 @@ public class Cuadro{
     public int[][] matriz;
     public int fila;
     public int columna;
+    Queue<cluster> cola;
+    
+    public int[][] getMatriz(){
+        return matriz;
+    }
+    public Queue<cluster> getCola(){
+        return cola;
+    }
 
 
     public Cuadro(String texto ){
@@ -24,15 +32,15 @@ public class Cuadro{
             this.columna=Integer.parseInt(linea);
             int[][] mat=new int[this.fila][this.columna];//matriz
             
-            for(int i=0;i<fila-1;i++){//recorre las filas                
+            for(int i=0;i<fila;i++){//recorre las filas                
                 linea=br.readLine();
                 String[] lista=linea.split(",");
                 for(int b=0;b<columna;b++){//recorre las columnas
                     mat[i][b]=Integer.parseInt(lista[b]);//se usa el valor de b para agregar los datos en cada columna de cada fila    
                 }
             }
-            
             this.matriz=mat;//indica el valor de la matriz
+            this.cola=this.buscarClusters();
             // crear el Array, matriz, lista(como prefieras guardar los datos) de closters
             //para eso esta el metodo buscar closters, que recive la matriz y debe buscar todos los closters
         }catch(IOException e){
@@ -296,6 +304,24 @@ public class Cuadro{
     
 
     public void pintarCuadro(int closter, int color){
+        ArrayList<cluster> cola=new ArrayList<>(this.cola);
+        
+        cluster clost=null;
+        System.out.println(clost);
+        for(cluster clo:cola){
+            if(clo.getNumeroCloster()==closter){
+                clost=clo;
+            }
+        }
+        if(clost==null)return;
+        ArrayList<Coordenada> pixeles=clost.getPixeles();
+        System.out.println(clost);
+        for(Coordenada cor:pixeles){
+            int fil=cor.getFila();
+            int col=cor.getColumna();
+            matriz[fil][col]=color;
+        }
+
         
     }
 

@@ -6,11 +6,15 @@ import java.util.Stack;
 
 public class cluster implements Comparable<cluster> {
     private static int contador = 0;
-    int color;
-    int tam;
-    ArrayList<Coordenada> pixeles;
-    int pixelIzq;
-    int numeroCloster;
+    private int color;
+    private int tam;
+    private ArrayList<Coordenada> pixeles;
+    private int pixelIzq;
+    private int numeroCloster;
+    
+    public void setContador(int valor){
+        contador=valor;
+    }
 
     //Constructor
     public cluster(int color, int tam, int pixelIzq){

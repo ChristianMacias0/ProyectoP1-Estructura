@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 public class PintarCuadroGUI extends JFrame {
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new PintarCuadroGUI().setVisible(true));
         
     }
     //variabeles
@@ -32,11 +33,11 @@ public class PintarCuadroGUI extends JFrame {
         setLocationRelativeTo(null);
         this.cuadro= new Cuadro("Matriz.txt");
         this.paintPanel=new JPanel(){
-            /*@Override
-            protected void paintComponetn(Graphics g){
+            @Override
+            protected void paintComponent(Graphics g){
                 super.paintComponent(g);
                 drawCuadro(g);
-            };*/
+            };
 
         };
         JPanel controlPanel=new JPanel();
@@ -54,7 +55,8 @@ public class PintarCuadroGUI extends JFrame {
         formPanel.add(closterLab,gbc);
         gbc.gridx = 1;
         ClosterJSpinner = new JSpinner(new SpinnerNumberModel(0,0,cuadro.buscarClusters().size(),1));
-        
+        formPanel.add(ClosterJSpinner, gbc);
+
         gbc.gridx = 0; gbc.gridy = 2;
         JLabel colorLabel = new JLabel("Color:");
         colorLabel.setPreferredSize(new Dimension(80, 25));
@@ -83,6 +85,24 @@ public class PintarCuadroGUI extends JFrame {
         int closter=(int) ClosterJSpinner.getValue();
         int color= colorComboBox.getSelectedIndex();
         cuadro.pintarCuadro(closter, color);
+        paintPanel.repaint();
+    }
+    private void drawCuadro(Graphics g) {
+        int cellSize = Math.min(paintPanel.getWidth() / cuadro.getMatriz()[0].length, 
+                              paintPanel.getHeight() / cuadro.getMatriz().length);     
+        g.setColor(Color.BLACK);
+        g.drawRect(0, 0, 
+                  cuadro.getMatriz()[0].length * cellSize, 
+                  cuadro.getMatriz().length * cellSize);
+        for (int i = 0; i < cuadro.getMatriz().length; i++) {
+            for (int j = 0; j < cuadro.getMatriz()[i].length; j++) {
+                int color = cuadro.getMatriz()[i][j];
+                g.setColor((Color) COLORS.values().toArray()[Math.max(0, Math.min(color, COLORS.size() - 1))]);
+                g.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                g.setColor(Color.BLACK);
+                g.drawRect(j * cellSize, i * cellSize, cellSize, cellSize);
+            }
+        }
     }
     
 }
