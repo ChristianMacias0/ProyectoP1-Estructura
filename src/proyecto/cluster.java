@@ -9,7 +9,6 @@ public class cluster implements Comparable<cluster> {
     private int color;
     private int tam;
     private ArrayList<Coordenada> pixeles;
-    private int pixelIzq;
     private int numeroCloster;
     
     public void setContador(int valor){
@@ -17,17 +16,17 @@ public class cluster implements Comparable<cluster> {
     }
 
     //Constructor
-    public cluster(int color, int tam, int pixelIzq){
+    public cluster(int color, int tam){
         contador++;
         this.color=color;
         this.tam=tam;
         this.pixeles=new ArrayList<>();
-        this.pixelIzq=pixelIzq;
+
         this.numeroCloster=contador;
     }
 
     public cluster(){
-        this(0,0,0);
+        this(0,0);
     }
 
     
@@ -59,14 +58,7 @@ public class cluster implements Comparable<cluster> {
         this.pixeles = pixeles;
     }
 
-    // Getter y Setter para pixelIzq
-    public int getPixelIzq() {
-        return pixelIzq;
-    }
 
-    public void setPixelIzq(int pixelIzq) {
-        this.pixelIzq = pixelIzq;
-    }
 
     // Getter y Setter para numeroCloster
     public int getNumeroCloster() {
@@ -85,16 +77,13 @@ public class cluster implements Comparable<cluster> {
         if (tamComparison != 0) {
             return tamComparison;
         }
-        return Integer.compare(this.getPixelIzq(), o.getPixelIzq());
+        return tamComparison;
     }
 
-    public void actualizarPixelIzq(int pixelIzq) {
-        if(pixelIzq < this.pixelIzq){this.pixelIzq = pixelIzq;}
-    }
 
     @Override
     public String toString() {
-        return "cluster{" + "tam=" + tam + ", pixeles=" + pixeles + ", pixelIz q=" + pixelIzq + ", numeroCloster=" + numeroCloster +" color: "+ color +"}";
+        return "cluster{" + "tam=" + tam + ", pixeles=" + pixeles  + ", numeroCloster=" + numeroCloster +" color: "+ color +"}";
     }
 
 

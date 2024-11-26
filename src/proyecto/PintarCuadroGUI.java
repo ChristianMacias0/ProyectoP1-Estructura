@@ -29,7 +29,7 @@ public class PintarCuadroGUI extends JFrame {
     public PintarCuadroGUI(){
         super("Pintar Cuadro de locos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800,800);
+        setSize(900,900);
         setLocationRelativeTo(null);
         this.cuadro= new Cuadro("Matriz.txt");
         this.paintPanel=new JPanel(){
