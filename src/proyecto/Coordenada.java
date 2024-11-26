@@ -22,8 +22,8 @@ public class Coordenada implements Comparable<Coordenada> {
     @Override
     public int compareTo(Coordenada o) {
         if(this.fila == o.getFila() && this.columna == o.getColumna()){ return 0;}
-        if(this.fila != o.getFila()){return Integer.compare(fila, o.getFila());}
-        return Integer.compare(columna, o.getColumna());
+        if(this.columna != o.getColumna()){return Integer.compare(columna, o.getColumna());}
+        return Integer.compare(fila, o.getFila());
     }
 
     @Override

@@ -12,7 +12,7 @@ public class PintarCuadroGUI extends JFrame {
     private Cuadro cuadro;
     private JPanel paintPanel;
     private JSpinner ClosterJSpinner;
-    private JComboBox<String> colorComboBox;
+    private JComboBox<String> colorComboBox; 
     private JButton paintButton;
     private final Map<String, Color> COLORS = new LinkedHashMap<>() {{
         put("Blanco", Color.WHITE);
