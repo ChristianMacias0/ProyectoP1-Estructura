@@ -105,39 +105,39 @@ public class Cuadro{
 
     
         // Eliminar clusters que contienen todos los elementos de la última fila
-    List<cluster> clustersSinUltimaFila = new ArrayList<>();
-    for (cluster c : resultado) {
-        boolean contieneUltimaFila = true;
-        for (int columna = 0; columna < matriz[matriz.length - 1].length; columna++) {
-            Coordenada coordUltimaFila = new Coordenada(matriz.length - 1, columna);
-            if (!c.getPixeles().contains(coordUltimaFila)) {
-                contieneUltimaFila = false;
-                break;
+        List<cluster> clustersSinUltimaFila = new ArrayList<>();
+        for (cluster c : resultado) {
+            boolean contieneUltimaFila = true;
+            for (int columna = 0; columna < matriz[matriz.length - 1].length; columna++) {
+                Coordenada coordUltimaFila = new Coordenada(matriz.length - 1, columna);
+                if (!c.getPixeles().contains(coordUltimaFila)) {
+                    contieneUltimaFila = false;
+                    break;
+                }
+            }
+            if (!contieneUltimaFila) {
+                clustersSinUltimaFila.add(c); // Solo agregamos los clusters que no contienen la última fila
             }
         }
-        if (!contieneUltimaFila) {
-            clustersSinUltimaFila.add(c); // Solo agregamos los clusters que no contienen la última fila
-        }
-    }
 
-    // Ahora, ordenar los clusters por tamaño (descendente) y píxel más a la izquierda
-    clustersSinUltimaFila.sort((c1, c2) -> {
-        // Comparar por tamaño (descendente)
-        int cmp = Integer.compare(c2.getTam(), c1.getTam());
-        if (cmp == 0) {
-            // En caso de empate, comparar por el píxel más a la izquierda
-            Coordenada minC1 = obtenerPixelMasIzquierdo(c1);
-            Coordenada minC2 = obtenerPixelMasIzquierdo(c2);
-            cmp = Integer.compare(minC1.getFila(), minC2.getFila());
+        // Ahora, ordenar los clusters por tamaño (descendente) y píxel más a la izquierda
+        clustersSinUltimaFila.sort((c1, c2) -> {
+            // Comparar por tamaño (descendente)
+            int cmp = Integer.compare(c2.getTam(), c1.getTam());
             if (cmp == 0) {
-                cmp = Integer.compare(minC1.getColumna(), minC2.getColumna());
+                // En caso de empate, comparar por el píxel más a la izquierda
+                Coordenada minC1 = obtenerPixelMasIzquierdo(c1);
+                Coordenada minC2 = obtenerPixelMasIzquierdo(c2);
+                cmp = Integer.compare(minC1.getFila(), minC2.getFila());
+                if (cmp == 0) {
+                    cmp = Integer.compare(minC1.getColumna(), minC2.getColumna());
+                }
             }
-        }
-        return cmp;
-    });
+            return cmp;
+        });
 
-    return new LinkedList<>(clustersSinUltimaFila); // Convertimos de List a Queue
-}
+        return new LinkedList<>(clustersSinUltimaFila); // Convertimos de List a Queue
+    }
 
 
 
